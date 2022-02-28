@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="EN">
+  <head>
+    <title>Password Generator</title>
+    <link
+      rel="icon"
+      href="{{url_for('static', filename='xkcd.ico')}}"
+      type="image/x-icon"
+    />
+    <link
+      rel="shortcut_icon"
+      href="{{url_for('static', filename='xkcd.ico')}}"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{url_for('static', filename='xkcd.css')}}"
+      title="Default"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <script src="{{url_for('static', filename='xkcd.js')}}"/>
+    <script>src = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"; integrity = "sha512-YSdqvJoZr83hj76AIVdOcvLWYMWzy6sJyIMic2aQz5kh2bPTd9dzY3NtdeEAzPp/PhgZqr4aJObB3ym/vsItMg=="; crossorigin = "anonymous"; referrerpolicy = "no-referrer";</script>
+  </head>
+  <body>
+    <div class="box">
+      <div id="ctitle">
+        <a target="_blank" href="https://xkcd.com/936/"
+          ><img
+            src="{{url_for('static', filename='xkcd.png')}}"
+            alt="xkcd.com - A webcomic of romance,sarcasm, math, and language."
+        /></a>
+      </div>
+      <div class="theTitle" onclick="location.reload()">
+        Generated Passwords {% if debugMode %} <br /><font size="-1"
+          >Debug Mode On</font
+        >
+        {% endif %}
+      </div>
+
+      {% for this in passwords %} {% if loop.index > 1 %}
+      <br />
+      {% endif %}
+      <input
+        aria-label="Password"
+        type="text"
+        value="{{ this.varvalue }}"
+        id="{{ this.varname }}"
+        size="{{ maxLength }}"
+        readonly
+        onclick="copyIt('{{ this.varname }}')"
+      />
+      <i
+        class="fas fa-clipboard"
+        title="Copy to clipboard"
+        onclick="copyIt('{{ this.varname }}')"
+      ></i>
+      {% if debugMode %}
+      <font size="-1">{{ this.varlen }}</font>
+      {% endif %} {% endfor %}
+
+      <div class="refresh">
+        <i
+          class="fas fa-redo fa-3x"
+          title="Regenerate Passwords"
+          onclick="location.reload()"
+        ></i>
+      </div>
+    <div id="version">v{{ version }}</div>
+  </body>
+</html>

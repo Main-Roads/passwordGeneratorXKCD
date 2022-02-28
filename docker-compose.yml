@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: password-generator-flask
+    restart: always
+    command: python manage.py run -h 0.0.0.0
+    ports:
+      - 5000:5000
+    env_file:
+      - ./.env.dev
