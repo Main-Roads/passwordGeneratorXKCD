@@ -2,7 +2,7 @@
 
 services:
   password-generator:
-    image: ghcr.io/itsalljustdata/xkcd-password-generator:dev
+    image: ghcr.io/main-roads/passwordgeneratorxkcd:dev
     pull_policy: never
     container_name: xkcd-build
     restart: never
