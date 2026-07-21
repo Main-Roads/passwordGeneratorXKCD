@@ -1,0 +1,8 @@
+services:
+  password-generator:
+    container_name: password-generator
+    restart:  unless-stopped
+    image: ghcr.io/itsalljustdata/xkcd-password-generator:${DOCKER_TAG:-latest}
+    read_only: true
+    tmpfs:
+      - /tmp

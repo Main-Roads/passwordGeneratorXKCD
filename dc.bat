@@ -1,1 +1,0 @@
-docker-compose down --remove-orphans && docker-compose rm -f && docker image prune -f && docker-compose build  --force-rm --compress --no-cache && docker-compose up -d && docker exec -it password-generator-flask find

@@ -5,7 +5,7 @@ from flask_htmlmin import HTMLMIN
 
 from pathlib import Path
 from datetime import datetime
-from os import environ
+from os import getenv
 
 try:
     from icecream import ic
@@ -33,17 +33,20 @@ except ImportError:  # Graceful fallback if IceCream isn't installed.
 def nowString():
     return f"{datetime.now().strftime('%Y.%m.%d %T')} |> "
 
-
 try:
     ic.configureOutput(prefix=nowString)
 except AttributeError:
     pass
 
 
-def getConfig(configFile: str = "config.yaml"):
+_default_env_location = '/home/app/web/project/config.yaml'
+
+def getConfig(configFile: str):
     global __version__
     # Looks in current folder (i.e. the "app" folder), then if it doesn't find it there looks at the project folder
+    
     thisPath = Path(configFile).resolve()
+
     if not thisPath.is_file():
         raise FileNotFoundError(str(thisPath))
     config = Config(file_path=thisPath)
@@ -55,8 +58,7 @@ def getConfig(configFile: str = "config.yaml"):
 
     return config
 
-
-CONFIG = getConfig(environ.get('APP_CONFIG'))
+CONFIG = getConfig(getenv('APP_CONFIG',_default_env_location))
 
 app = Flask(__name__)
 app.config['MINIFY_HTML'] = CONFIG.get_bool('APP/MINIFY_HTML')
