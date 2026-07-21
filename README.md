@@ -15,9 +15,11 @@ The easiest way to run this application is using Docker Compose:
 ```yaml
 services:
   password-generator:
+    image: ghcr.io/main-roads/passwordgeneratorxkcd:${DOCKER_TAG:-latest}
     container_name: password-generator
     restart:  unless-stopped
-    image: ghcr.io/main-roads/passwordgeneratorxkcd:${DOCKER_TAG:-latest}
+    ports:
+      - ${PORT:-5000}:${PORT:-5000}
     volumes:
       - ./config.yaml:/home/xkcd/web/project/config.yaml:ro # Optional, for overriding defaults
     read_only: true
