@@ -1,11 +1,12 @@
 APP:
-  DEBUG: true
+  DEBUG: false
   HOST: 0.0.0.0
+  MINIFY_HTML: true
 XKCDPASS:
   wordfile: null
-  numwords: 4
-  min_length: 4
-  max_length: 7
+  numwords: 5
+  min_length: 5
+  max_length: 8
   acrostic: null
   valid_chars: .
   verbose: false

@@ -3,6 +3,8 @@ services:
     container_name: password-generator
     restart:  unless-stopped
     image: ghcr.io/main-roads/passwordgeneratorxkcd:${DOCKER_TAG:-latest}
+    # volumes:
+    #   - ./config.yaml:/home/xkcd/web/project/config.yaml:ro
     read_only: true
     tmpfs:
       - /tmp

@@ -42,7 +42,7 @@ COPY --from=builder /root/.local /home/$APPUSER/.local
 
 # Copy application files
 COPY --chown=$APPUSER:$APPGROUP VERSION $APP_FOLDER/project/
-COPY --chown=$APPUSER:$APPGROUP ./config.prod.yaml $APP_CONFIG
+COPY --chown=$APPUSER:$APPGROUP ../config.yaml $APP_CONFIG
 COPY --chown=$APPUSER:$APPGROUP ./web/ $APP_FOLDER
 COPY --chown=$APPUSER:$APPGROUP ./healthcheck.sh /healthcheck.sh
 COPY --chown=$APPUSER:$APPGROUP ./entrypoint.sh /entrypoint.sh
