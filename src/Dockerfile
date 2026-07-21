@@ -8,7 +8,7 @@ RUN apk update && apk add --no-cache \
     musl-dev
 
 # Copy requirements and install Python packages
-COPY requirements.txt .
+COPY src/requirements.txt .
 RUN pip install --no-cache-dir --user -r requirements.txt
 
 # Stage 2: Runtime stage
@@ -41,11 +41,11 @@ WORKDIR $APP_FOLDER
 COPY --from=builder /root/.local /home/$APPUSER/.local
 
 # Copy application files
-COPY --chown=$APPUSER:$APPGROUP VERSION $APP_FOLDER/project/
-COPY --chown=$APPUSER:$APPGROUP ../config.yaml $APP_CONFIG
-COPY --chown=$APPUSER:$APPGROUP ./web/ $APP_FOLDER
-COPY --chown=$APPUSER:$APPGROUP ./healthcheck.sh /healthcheck.sh
-COPY --chown=$APPUSER:$APPGROUP ./entrypoint.sh /entrypoint.sh
+COPY --chown=$APPUSER:$APPGROUP src/VERSION $APP_FOLDER/project/
+COPY --chown=$APPUSER:$APPGROUP config.yaml $APP_CONFIG
+COPY --chown=$APPUSER:$APPGROUP src/web/ $APP_FOLDER
+COPY --chown=$APPUSER:$APPGROUP src/healthcheck.sh /healthcheck.sh
+COPY --chown=$APPUSER:$APPGROUP src/entrypoint.sh /entrypoint.sh
 
 # Make healthcheck script executable
 RUN find /*.sh -maxdepth 1 -type f -exec chmod +x {} \;
